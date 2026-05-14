@@ -1,22 +1,24 @@
-plantuml
 @startuml
-actor 用户 as User
-participant "前端" as Frontend
-participant "Flask后端" as Backend
+title AI Quote Generator Sequence Diagram
 
-User -> Frontend : 点击按钮
-activate Frontend
+actor User
+participant "Browser Frontend" as Frontend
+participant "Flask Backend" as Backend
+participant "Large Language Model API" as LLM
+participant "Pollinations Image API" as ImageAPI
 
-Frontend -> Backend : HTTP请求(POST/GET)
-activate Backend
+User -> Frontend : Open the web page
+Frontend -> Backend : GET /
+Backend -> ImageAPI : Request generated image
+ImageAPI --> Backend : Return generated image
+Backend --> Frontend : Return index.html and image route
+Frontend --> User : Display page with generated image
 
-Backend -> Backend : 处理请求逻辑
-Backend -> Backend : 查询数据库/业务处理
-
-Backend --> Frontend : JSON响应
-deactivate Backend
-
-Frontend --> User : 更新界面显示
-deactivate Frontend
+User -> Frontend : Click "Get Quote"
+Frontend -> Backend : GET /api/quote
+Backend -> LLM : Generate or retrieve inspirational quote
+LLM --> Backend : Return quote text
+Backend --> Frontend : Return quote as JSON
+Frontend --> User : Update quote text on the page
 
 @enduml

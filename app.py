@@ -52,4 +52,4 @@ def generated_image():
     return Response(response.content, content_type=response.headers.get("Content-Type", "image/jpeg"))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=False)
