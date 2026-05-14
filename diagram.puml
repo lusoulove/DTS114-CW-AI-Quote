@@ -1,0 +1,22 @@
+plantuml
+@startuml
+actor 用户 as User
+participant "前端" as Frontend
+participant "Flask后端" as Backend
+
+User -> Frontend : 点击按钮
+activate Frontend
+
+Frontend -> Backend : HTTP请求(POST/GET)
+activate Backend
+
+Backend -> Backend : 处理请求逻辑
+Backend -> Backend : 查询数据库/业务处理
+
+Backend --> Frontend : JSON响应
+deactivate Backend
+
+Frontend --> User : 更新界面显示
+deactivate Frontend
+
+@enduml
